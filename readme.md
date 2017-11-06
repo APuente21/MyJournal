@@ -1,3 +1,3 @@
 My Journal!
 ===================
-myjournal.andrespuente.us
+http://myjournal.andrespuente.us/
