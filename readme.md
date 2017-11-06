@@ -1,2 +1,3 @@
-##MY Journal
+My Journal!
+===================
 myjournal.andrespuente.us
