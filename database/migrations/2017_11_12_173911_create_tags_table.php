@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJournalEntryTable extends Migration
+class CreateTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateJournalEntryTable extends Migration
      */
     public function up()
     {
-        Schema::create('JournalEntry', function (Blueprint $table) {
-            $table->date('entry_date');
-            $table->time('entry_time');
-            $table->longText('post');
-            $table->primary(['entry_date', 'entry_time']);
+        Schema::create('tags', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('tag');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateJournalEntryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('JournalEntry');
+        Schema::dropIfExists('tags');
     }
 }
