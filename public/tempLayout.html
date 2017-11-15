@@ -3,23 +3,18 @@
         <head>
             <title>My Journal</title>
             <meta charset="utf-8"/>
-            <link href="https://fonts.googleapis.com/css?family=Clicker+Script" rel="stylesheet">
-            <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
             
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script> 
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">     
             
+            <!--My custom sheets>-->
+            <script src="js/myjournal.js"></script>
             <link rel="stylesheet" type="text/css" href="css/MyJournal.css"/>
-             
-            <!--BootStrap CSS-->
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-            
-             <!--BootStrap JS -->
-            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-            
-            <script src="js/jquery-3.2.0.min.js"></script>
         </head>
         <body>
+                    
             <header>
                 <h1>My Journal</h1>
             </header>
@@ -27,8 +22,8 @@
                 <form class="form-horizontal">
                     <div class="form-group row">
                         <label class="control-label col-sm-1" for="date">Date:</label>
-                         <div class="col-sm-2">
-                              <input type="title" class="form-control" id="title" placeholder="Enter title">
+                        <div class="col-md-4">
+                            <input type="text" id="datepicker" class="from-control">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -49,5 +44,6 @@
                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 
             </div>
+
         </body>
     </html>
