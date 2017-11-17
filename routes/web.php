@@ -37,6 +37,10 @@ Route::get('/debug', function () {
     dump($debug);
 });
 
+
+Route::get('/', 'JournalController@index');
+
+/*
 Route::get('/', function () {
     return view('welcome');
-});
+});*/

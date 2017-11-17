@@ -8,6 +8,7 @@
         <title>Laravel</title>
     </head>
     <body>
+        {{$posts}}
         <h1>My Journal</h1>
     </body>
 </html>
