@@ -11,10 +11,10 @@ class PostsTableSeeder extends Seeder {
      */
     public function run() {
         $posts = [
-            ['2017-11-10 15:45:57', 'Post 1'],
-            ['2017-11-10 17:45:57', 'Post 2'], 
-            ['2017-11-11 15:45:57', 'Post 3'],  
-            ['2017-11-12 15:45:57', 'Post 4']  
+            ['2017-11-10 15:45:57', 'Title 1', 'Post 1'],
+            ['2017-11-10 17:45:57', 'Title 2', 'Post 2'], 
+            ['2017-11-11 15:45:57', 'Title 3', 'Post 3'],  
+            ['2017-11-12 15:45:57', 'Title 4', 'Post 4']  
           ];
         
         
@@ -22,7 +22,8 @@ class PostsTableSeeder extends Seeder {
             Post::insert([
                 'created_at' => $post[0],
                 'updated_at' => $post[0],
-                'post' => $post[1]
+                'title' => $post[1],
+                'post' => $post[2]
             ]);
         }
     }

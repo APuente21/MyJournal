@@ -40,7 +40,13 @@
             </form>
         </div>
         <div class="container sidePanel row">
-            @if()
+           @if('$date')
+                <ul>
+                    @foreach ($data as $result)
+                        <li>{{$result->created_at}}, {{$result->title}}</li>
+                    @endforeach
+                </ul>             
+            @endif
         </div>
 
     </body>
