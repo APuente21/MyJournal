@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/debug', function () {
     $debug = [
         'Environment' => App::environment(),
@@ -39,6 +40,7 @@ Route::get('/debug', function () {
 
 
 Route::get('/', 'JournalController@index');
+Route::post('/process-form', 'JournalController@processForm');
 
 /*
 Route::get('/', function () {

@@ -25,4 +25,17 @@ class JournalController extends Controller {
             'titles' => $titles
         ]);
     }
+    
+    public function processForm(Request $request){  
+        $this->validate($request, [
+            'date' => 'required|date',
+            'title' => 'required'
+        ]);
+         
+        $journalEntry= new Post();
+        $journalEntry->title = $request->input('title');
+        $journalEntry->post = $request->input('journal-entryspo');
+        $journalEntry->save();
+       return redirect('/');
+    }
 }

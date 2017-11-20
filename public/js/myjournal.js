@@ -3,4 +3,9 @@ $(document).ready(function() {
     $(function() {
         $("#datepicker").datepicker();
     });
+
+    $(function(){
+         $('#myTags').tagit();
+    })
+
 });

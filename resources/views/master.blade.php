@@ -17,37 +17,68 @@
         <header>
             <h1>My Journal</h1>
         </header>
-        <div class="container-fluid mainPanel">
-            <form class="form-horizontal">
-                <div class="form-group row">
-                    <label class="control-label col-sm-1" for="date">Date:</label>
-                    <div class="col-md-4">
-                        <input type="text" id="datepicker" class="from-control">
+            <div class="container-fluid mainPanel">
+                <form class="form-horizontal" method="POST" action='/process-form'>
+                    {{ csrf_field() }}
+                    <div class="form-group row">
+                        <label class="control-label col-sm-1" for="date">Date:</label>
+                        <div class="col-md-4">
+                            <input type="text" id="datepicker" name="date" class="from-control">
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label class="control-label col-sm-1" for="title">Title:</label>
-                     <div class="col-sm-11">
-                          <input type="title" class="form-control" id="title" placeholder="Enter title">
+                    <div class="form-group row">
+                        <label class="control-label col-sm-1" for="title">Title:</label>
+                         <div class="col-sm-11">
+                              <input type="title" class="form-control" name="title" id="title" placeholder="Enter title">
+                        </div>
                     </div>
-                </div>
-                 <div class="form-group row">
-                    <label class="control-label col-sm-1" for="post">Post:</label>
-                     <div class="col-sm-11 ">
-                          <textarea class="form-control" rows="20" id="comment"></textarea>
+                     <div class="form-group row">
+                        <label class="control-label col-sm-1" for="post">Post:</label>
+                         <div class="col-sm-11 ">
+                              <textarea class="form-control" name="journal-entry" rows="20" id="comment"></textarea>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                    <div class="form-group row">
+                        <div class="tags">
+                            <label class="control-label col-sm-1" for="title">Tags:</label>
+                             <div class="col-sm-5">
+                                  <input type="title" class="form-control" id="title" placeholder="Enter tags">
+                            </div>
+                        </div>
+                        <div class="submit">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div> 
+                </form>
+                
+            @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+            </div>
         <div class="container sidePanel row">
            @if('$date')
-                <ul>
+                <ul class="post-list">
                     @foreach ($data as $result)
-                        <li>{{$result->created_at}}, {{$result->title}}</li>
+                        <li><button type="submit" class="btn btn-primary">
+                            {{$result->created_at}}, {{$result->title}}
+                            </button>
+                        </li>
                     @endforeach
                 </ul>             
             @endif
         </div>
 
+        
+        <div class="footer">
+                <div class="container-fluid">
+                    © 2017 Copyright
+                </div>
+            </div>
     </body>
 </html>
