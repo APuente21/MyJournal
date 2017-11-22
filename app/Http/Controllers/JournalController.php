@@ -11,47 +11,48 @@ class JournalController extends Controller {
         
         $results = Post::orderBy('created_at')->get();
         
-        $myDates = array();
-        $titles = array();
-        
-        foreach ($results as $result){
-            $myDates[] = date_parse($result->created_at);
-            $titles[] = $result->title;
-        }
-       # dump($myDates);
-        
-        return view('master')->with([
-            'data' => $results,
-            'test' => false,
-            'dates' => $myDates,
-            'titles' => $titles
+        return view('save')->with([
+            'data' => $results
         ]);
     }
     
-    public function processForm(Request $request){  
-        $this->validate($request, [
-            'date' => 'required|date',
-            'title' => 'required'
-        ]);
+    public function processForm(Request $request){
+        if (isset($_POST['save_button'])) {
+            $this->validate($request, [
+                'date' => 'required|date',
+                'title' => 'required'
+            ]);
          
-        $journalEntry= new Post();
-        $journalEntry->title = $request->input('title');
-        $journalEntry->post = $request->input('journal-entry');
-        $journalEntry->save();
-       return redirect('/');
+            $journalEntry= new Post();
+            $journalEntry->title = $request->input('title');
+            $journalEntry->post = $request->input('journal-entry');
+            $journalEntry->save();
+           return redirect('/');  
+        } else if (isset($_POST['update_button'])) {
+             $this->validate($request, [
+                'title' => 'required'
+            ]);
+            
+            $result = Post::orderBy('created_at')->get();
+            $result->title = $request->input('title');
+            $result->post = $request->input('journal-entry');
+            #dump($result);
+            #return;
+            $result->save();
+            return redirect('/');  
+        }
+        else if (isset($_POST['delete_button'])) {
+            $result = Post::where('created_at', '=', $_POST['date'])->delete();
+            return redirect('/'); 
+        }
     }
     
     public function editForm($id){
-            dump($id);
-            $result = Post::where('created_at', '=', $id)->get();
-            #$myDates = $result->created_at;
-            #$titles = $result->title;
-            #$post = $result->post;
-            dump($result);
-                
-        return view('master')->with([
-            'data' => $result,
-            'test' => true,
+        $results = Post::orderBy('created_at')->get();
+        $edit = Post::where('created_at', '=', $id)->get()->toArray();
+        return view('edit')->with([
+            'data' => $results,
+            'edit' => $edit
         ]);
     }
 }
