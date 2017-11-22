@@ -18,9 +18,11 @@ class JournalController extends Controller {
             $myDates[] = date_parse($result->created_at);
             $titles[] = $result->title;
         }
-    
+       # dump($myDates);
+        
         return view('master')->with([
             'data' => $results,
+            'test' => false,
             'dates' => $myDates,
             'titles' => $titles
         ]);
@@ -34,8 +36,22 @@ class JournalController extends Controller {
          
         $journalEntry= new Post();
         $journalEntry->title = $request->input('title');
-        $journalEntry->post = $request->input('journal-entryspo');
+        $journalEntry->post = $request->input('journal-entry');
         $journalEntry->save();
        return redirect('/');
+    }
+    
+    public function editForm($id){
+            dump($id);
+            $result = Post::where('created_at', '=', $id)->get();
+            #$myDates = $result->created_at;
+            #$titles = $result->title;
+            #$post = $result->post;
+            dump($result);
+                
+        return view('master')->with([
+            'data' => $result,
+            'test' => true,
+        ]);
     }
 }

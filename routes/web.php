@@ -41,6 +41,8 @@ Route::get('/debug', function () {
 
 Route::get('/', 'JournalController@index');
 Route::post('/process-form', 'JournalController@processForm');
+Route::get('/edit-form/{id}', ['uses' => 'JournalController@editForm']);
+#Route::post('/edit-form/{date}/{title}', 'JournalController@editForm');
 
 /*
 Route::get('/', function () {

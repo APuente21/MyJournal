@@ -37,14 +37,15 @@ header{
     float: right;
 }
 
-post-list{
+.post-list{
     list-style-type: none;
     margin: 0;
     padding: 0;
 }
 
-post-style li{
-    margin-top: 20px
+.post-list li button {;
+    margin-top: 10px;
+    background-color: red;
 }
 
 

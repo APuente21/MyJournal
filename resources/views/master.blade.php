@@ -35,7 +35,9 @@
                      <div class="form-group row">
                         <label class="control-label col-sm-1" for="post">Post:</label>
                          <div class="col-sm-11 ">
-                              <textarea class="form-control" name="journal-entry" rows="20" id="comment"></textarea>
+                              <textarea class="form-control" name="journal-entry" rows="20" id="comment">
+                                {{$test ? 'test' : ''}}
+                             </textarea>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -65,12 +67,20 @@
            @if('$date')
                 <ul class="post-list">
                     @foreach ($data as $result)
-                        <li><button type="submit" class="btn btn-primary">
-                            {{$result->created_at}}, {{$result->title}}
+                        <li>
+                            <a href="/edit-form/{{$result->created_at}}">
+                                {{$result->created_at}}, {{$result->title}}
+                            </a>
+                            
+                        <!--    
+                          #  <button type="submit" form="form2" class="btn btn-primary">
+                           # {{$result->created_at}}, {{$result->title}}
                             </button>
+                        -->
                         </li>
                     @endforeach
-                </ul>             
+                </ul>   
+            
             @endif
         </div>
 
