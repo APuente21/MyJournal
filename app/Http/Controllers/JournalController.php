@@ -48,7 +48,7 @@ class JournalController extends Controller {
                 'date' => 'required|date',
                 'title' => 'required'
             ]);
-            $result = Post::where('created_at', '=', $_POST['date'])->get();
+            $result = App\Post::where('created_at', '=', $_POST['date'])->first();
             $result->title = $request->input('title');
             $result->post = $request->input('journal-entry');
 
