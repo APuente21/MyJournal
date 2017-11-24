@@ -37,6 +37,12 @@ header{
     float: right;
 }
 
+.sidePanel h2{
+    text-align: center;
+    background-color: rgb(0, 34, 102);
+    color: white;
+}
+
 .post-list{
     list-style-type: none;
     margin: 0;

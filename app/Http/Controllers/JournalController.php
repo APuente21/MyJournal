@@ -22,27 +22,47 @@ class JournalController extends Controller {
                 'date' => 'required|date',
                 'title' => 'required'
             ]);
-         
+            $tags = explode(" ", $request->input('tags'));
+            
             $journalEntry= new Post();
             $journalEntry->title = $request->input('title');
             $journalEntry->post = $request->input('journal-entry');
             $journalEntry->save();
+            
+            /*
+            #dump($tags);
+            #dump($request);
+            #dump($_POST);
+            for ($x = 0; count($tags); $x++){
+                $tag= new Tag();
+                $tag->tag = $tags[$x];
+            }
+                
+            return ;
+            */
+            
            return redirect('/');  
+            
         } else if (isset($_POST['update_button'])) {
              $this->validate($request, [
+                'date' => 'required|date',
                 'title' => 'required'
             ]);
-            
-            $result = Post::orderBy('created_at')->get();
+            $result = Post::where('created_at', '=', $_POST['date'])->get();
             $result->title = $request->input('title');
             $result->post = $request->input('journal-entry');
-            #dump($result);
-            #return;
+
+           # return ;
             $result->save();
             return redirect('/');  
         }
+        
         else if (isset($_POST['delete_button'])) {
             $result = Post::where('created_at', '=', $_POST['date'])->delete();
+            return redirect('/'); 
+        }
+        
+        else{
             return redirect('/'); 
         }
     }

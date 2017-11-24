@@ -7,6 +7,7 @@
 
 @push('button')
     <div class="submit">
+        <input type="submit" class="btn btn-warning" name="cancel_button" value="Cancel" />
         <input type="submit" class="btn btn-danger" name="delete_button" value="Delete" />
         <input type="submit" class="btn btn-primary" name="update_button" value="Update" />
     </div>

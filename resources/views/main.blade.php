@@ -3,6 +3,8 @@
 @push('stylings')
     <script src="js/myjournal.js"></script>
     <link rel="stylesheet" type="text/css" href="css/MyJournal.css"/>
+    <link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">
+<link href="css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
 @endpush
 
 @section('myForm')
@@ -18,7 +20,7 @@
             <div class="form-group row">
                 <label class="control-label col-sm-1" for="title">Title:</label>
                 <div class="col-sm-11">
-                    <input type="title" class="form-control" name="title" id="title" value="{{isset($edit)?$edit[0]['title']:''}}">
+                    <input type="text" class="form-control" name="title" id="title" value="{{isset($edit)?$edit[0]['title']:''}}">
                 </div>
             </div>
             <div class="form-group row">
@@ -28,14 +30,13 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="tags">
-                    <label class="control-label col-sm-1" for="title">Tags:</label>
+                    <label class="control-label col-sm-1" for="tags">Tags:</label>
                     <div class="col-sm-5">
-                        <input type="title" class="form-control" id="title" placeholder="Enter tags">
+                        <input type="text" class="form-control" name="tags" id="tags">
                     </div>
-                </div>
-                @stack('button')
+                
             </div> 
+            @stack('button')
         </form>
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -48,16 +49,31 @@
         @endif
     </div>
     <div class="container sidePanel row">
-       @if('$date')
-            <ul class="post-list">
-                @foreach ($data as $result)
-                    <li>
-                        <a href="/edit-form/{{$result->created_at}}">
-                            {{$result->created_at}}, {{$result->title}}
-                        </a>
-                    </li>
-                @endforeach
-            </ul>   
+        @if('$data')
+            <div>
+                <h2>Previous Posts</h2>
+                <ul class="post-list">
+                    @foreach ($data as $result)
+                        <li>
+                            <a href="/edit-form/{{$result->created_at}}">
+                                {{$result->created_at}}, {{$result->title}}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>  
+            </div>
+            <div>
+                <h2>Tags</h2>
+                <ul class="post-list">
+                    @foreach ($data as $result)
+                        <li>
+                            <a href="/edit-form/{{$result->created_at}}">
+                                {{$result->created_at}}, {{$result->title}}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>  
+            </div>
         @endif
     </div>
 @endsection

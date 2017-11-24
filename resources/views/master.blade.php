@@ -10,7 +10,7 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.css" rel="stylesheet">     
 
         <!--My custom sheets>-->
-        @stack('stylings')
+        @stack('stylings')  
     </head>
     <body>
         <header>
