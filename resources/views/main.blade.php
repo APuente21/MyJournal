@@ -64,15 +64,6 @@
             </div>
             <div>
                 <h2>Tags</h2>
-                <ul class="post-list">
-                    @foreach ($data as $result)
-                        <li>
-                            <a href="/edit-form/{{$result->created_at}}">
-                                {{$result->created_at}}, {{$result->title}}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>  
             </div>
         @endif
     </div>

@@ -5,8 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 use App\Post;
+use App\Tag;
 
 class JournalController extends Controller {
+    
+    //Function that executes whenever you access main page. It queries database to get list of post in database
+    //and passess results to view
     public function index() {
         
         $results = Post::orderBy('created_at')->get();
@@ -29,17 +33,19 @@ class JournalController extends Controller {
             $journalEntry->post = $request->input('journal-entry');
             $journalEntry->save();
             
-            /*
-            #dump($tags);
-            #dump($request);
-            #dump($_POST);
-            for ($x = 0; count($tags); $x++){
+            
+            dump($tags);
+            dump($request);
+            dump($_POST);
+            for ($x = 0; $x<count($tags); $x++){
+                dump($x);
                 $tag= new Tag();
                 $tag->tag = $tags[$x];
+                $tag->save();
             }
                 
             return ;
-            */
+            
             
            return redirect('/');  
             
