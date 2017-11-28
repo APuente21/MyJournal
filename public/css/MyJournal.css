@@ -13,7 +13,18 @@ header{
     color: rgb(230, 238, 255);
 }
 
+.title a{
+    color: white;
+}
+
 .mainPanel {
+    padding-top: 20px;
+    width: 65% !important;
+    overflow: auto;
+    float: left;
+}
+
+.search {
     padding-top: 20px;
     width: 65% !important;
     overflow: auto;

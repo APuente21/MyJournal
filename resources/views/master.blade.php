@@ -14,11 +14,39 @@
     </head>
     <body>
         <header>
-            <h1>My Journal</h1>
+            <h1 class="title"><a href="http://myjournal.andrespuente.us/">My Journal</a></h1>
         </header>
-        <section>
-            @yield('myForm')
-        </section>
+        @stack('content')  
+        <div class="container sidePanel row">
+            @if('$data')
+                <div>
+                    <h2>Previous Posts</h2>
+                    <ul class="post-list">
+                        @foreach ($data as $result)
+                            <li>
+                                <a href="/edit-form/{{$result->created_at}}">
+                                    {{$result->created_at}}, {{$result->title}}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>  
+                </div>
+            @endif
+            @if('tags')
+                <div>
+                    <h2>Tags</h2>
+                    <ul class="tag-list">
+                        @foreach ($tags as $tag)
+                            <li>
+                                <a href="/tag-search/{{$tag->tag}}">
+                                    {{$tag->tag}}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>  
+                </div>
+            @endif
+        </div>
         <div class="footer">
             <div class="container-fluid">
                 © 2017 Copyright

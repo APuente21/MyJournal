@@ -4,10 +4,10 @@
     <script src="js/myjournal.js"></script>
     <link rel="stylesheet" type="text/css" href="css/MyJournal.css"/>
     <link href="css/jquery.tagit.css" rel="stylesheet" type="text/css">
-<link href="css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
+    <link href="css/tagit.ui-zendesk.css" rel="stylesheet" type="text/css">
 @endpush
 
-@section('myForm')
+@push('content')
     <div class="container-fluid mainPanel">
         <form class="form-horizontal" method="POST" action='/process-form'>
             {{ csrf_field() }}
@@ -48,34 +48,4 @@
             </div>
         @endif
     </div>
-    <div class="container sidePanel row">
-        @if('$data')
-            <div>
-                <h2>Previous Posts</h2>
-                <ul class="post-list">
-                    @foreach ($data as $result)
-                        <li>
-                            <a href="/edit-form/{{$result->created_at}}">
-                                {{$result->created_at}}, {{$result->title}}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>  
-            </div>
-        @endif
-        @if('tags')
-            <div>
-                <h2>Tags</h2>
-                <ul class="tag-list">
-                    @foreach ($tags as $tag)
-                        <li>
-                            <a href="/">
-                                {{$tag->tag}}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>  
-            </div>
-        @endif
-    </div>
-@endsection
+@endpush

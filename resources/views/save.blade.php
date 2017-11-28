@@ -1,4 +1,4 @@
-@extends('main')
+@extends('form')
 
 @push('stylings')
     <script src="../js/myjournal.js"></script>

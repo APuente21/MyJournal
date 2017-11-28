@@ -81,4 +81,19 @@ class JournalController extends Controller {
             'edit' => $edit
         ]);
     }
+    
+    public function search($id){
+        $results = Post::orderBy('created_at')->get();
+        $tags = Tag::all();
+        
+        
+        //add code to search posts that have selected tag    
+        
+        return view('search')->with([
+            'search' =>  $id,
+            'data' => $results,
+            'tags' => $tags
+        ]);
+    }
+    
 }

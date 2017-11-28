@@ -38,12 +38,17 @@ Route::get('/debug', function () {
     dump($debug);
 });
 
-
+//Main Page
 Route::get('/', 'JournalController@index');
+
+//Used to perform updated and delete post from db
 Route::post('/process-form', 'JournalController@processForm');
+
+//used to querry post from db
 Route::get('/edit-form/{id}', ['uses' => 'JournalController@editForm']);
 
-
+//search posts by tags
+Route::get('/tag-search/{id}', ['uses' => 'JournalController@search']);
 /*
 Route::get('/', function () {
     return view('welcome');
