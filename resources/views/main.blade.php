@@ -62,8 +62,19 @@
                     @endforeach
                 </ul>  
             </div>
+        @endif
+        @if('tags')
             <div>
                 <h2>Tags</h2>
+                <ul class="tag-list">
+                    @foreach ($tags as $tag)
+                        <li>
+                            <a href="/">
+                                {{$tag->tag}}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>  
             </div>
         @endif
     </div>

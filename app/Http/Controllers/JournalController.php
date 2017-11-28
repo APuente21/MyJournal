@@ -13,10 +13,12 @@ class JournalController extends Controller {
     //and passess results to view
     public function index() {
         
+        $tags = Tag::all();
         $results = Post::orderBy('created_at')->get();
         
         return view('save')->with([
-            'data' => $results
+            'data' => $results,
+            'tags' => $tags
         ]);
     }
     
@@ -33,20 +35,16 @@ class JournalController extends Controller {
             $journalEntry->post = $request->input('journal-entry');
             $journalEntry->save();
             
-            
-            dump($tags);
-            dump($request);
-            dump($_POST);
             for ($x = 0; $x<count($tags); $x++){
-                dump($x);
-                $tag= new Tag();
-                $tag->tag = $tags[$x];
-                $tag->save();
+                $result = Tag::where('tag', '=', $tags[$x])->get();
+                if($result == null){
+                    $tag= new Tag();
+                    $tag->tag = $tags[$x];
+                    $tag->save();
+                }
+                            
             }
-                
-            return ;
-            
-            
+
            return redirect('/');  
             
         } else if (isset($_POST['update_button'])) {
@@ -75,9 +73,11 @@ class JournalController extends Controller {
     
     public function editForm($id){
         $results = Post::orderBy('created_at')->get();
+        $tags = Tag::all();
         $edit = Post::where('created_at', '=', $id)->get()->toArray();
         return view('edit')->with([
             'data' => $results,
+            'tags' => $tags,
             'edit' => $edit
         ]);
     }
