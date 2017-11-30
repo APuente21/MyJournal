@@ -15,7 +15,8 @@ class TagsTableSeeder extends Seeder
             'love',
             'heart break', 
             'eating out',  
-            'bf troubles'  
+            'bf troubles',
+            'Atlanta'
           ];
         
         

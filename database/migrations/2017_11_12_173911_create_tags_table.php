@@ -11,8 +11,7 @@ class CreateTagsTable extends Migration
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tag')->unique();
@@ -25,8 +24,7 @@ class CreateTagsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('tags');
     }
 }

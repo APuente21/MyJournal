@@ -47,7 +47,6 @@
                 </div>
             @endif
         </div>
-
     </body>
     <footer>
         <div class="footer">
