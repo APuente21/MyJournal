@@ -22,25 +22,50 @@ class JournalController extends Controller {
         ]);
     }
     
+
+    /*THis is the main method in the controller that handles deleting post,
+    * updating a post, saving tags, updating tages, removing tags. The method 
+    * decides which operation to perform based on the name of the button that 
+    * was pressed 
+    */
     public function processForm(Request $request){
+
+        //if "save" button was selected
         if (isset($_POST['save_button'])) {
             $this->validate($request, [
                 'date' => 'required|date',
                 'title' => 'required',
                 'tags' => 'required'
             ]);
+            
+            //get current hour, min, sec
+            $hour = date("h");
+            $min = date("m");
+            $sec = date("s");
+
+            //modify inported date with
+            $date = new \DateTime($_POST['date']);
+            $date->format('Y-m-d H:i:s');
+            $date->modify("+{$hour} hours");
+            $date->modify("+{$min} minutes");
+            $date->modify("+{$sec} seconds");
+                    
+            //creates an array of tags entered in the form
             $tagsInForm = explode(" ", $request->input('tags'));
             
+            //Create a post model and save corresponding 
             $journalEntry= new Post();
+            $journalEntry->created_at = $date;
+            $journalEntry->updated_at = $date;
             $journalEntry->title = $request->input('title');
             $journalEntry->post = $request->input('journal-entry');
             $journalEntry->save();
             
             for ($x = 0; $x<count($tagsInForm); $x++){
-                $result = Tag::where('tag', '=', $tagsInForms[$x])->get();
+                $result = Tag::where('tag', '=', $tagsInForm[$x])->get();
                 if(count($result->toArray()) == 0){
                     $tag= new Tag();
-                    $tag->tag = $tags[$x];  
+                    $tag->tag = $tagsInForm[$x];  
                     $tag->save();
                     $tag->posts()->save($journalEntry);
                 }           
@@ -48,7 +73,8 @@ class JournalController extends Controller {
 
            return redirect('/');  
             
-        } else if (isset($_POST['update_button'])) {
+        } //if Updated button was run then follow these steps
+        else if (isset($_POST['update_button'])) {
              $this->validate($request, [
                 'date' => 'required|date',
                 'title' => 'required',
@@ -97,13 +123,13 @@ class JournalController extends Controller {
             }
             return redirect('/');  
         }
-        
+        //if delete button was selected
         else if (isset($_POST['delete_button'])) {
-            $result = Post::where('created_at', '=', $_POST['date'])->delete();
+            $result = Post::with('tags')->where('created_at', '=', $_POST['date'])->delete();
             
             return redirect('/'); 
         }
-        
+        //if cancel button was selected
         else{
             return redirect('/'); 
         }
