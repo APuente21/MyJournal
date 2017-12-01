@@ -13,16 +13,18 @@ class TagsTableSeeder extends Seeder
     public function run() {
         $tags = [
             'love',
-            'heart break', 
-            'eating out',  
-            'bf troubles',
+            'LGBTQ', 
+            'dinning',  
+            'travel',
             'Atlanta'
           ];
         
         
         foreach ($tags as $tag) {
             Tag::insert([
-                'tag' =>$tag
+                'tag' =>$tag,
+                'updated_at' => '2017-11-10 15:45:57',
+                'created_at' => '2017-11-10 15:45:57'
             ]);
         }
     }

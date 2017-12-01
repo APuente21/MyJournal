@@ -1,20 +1,21 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App/Tag;
-use App/Post;
+use App\Tag;
+use App\Post;
 
 
 class PostTagTableSeeder extends Seeder {
     public function run() {
         $posts = [
-            'Title 1' => ['eating out', 'bf troubles'],
-            'Title 2' => ['heart break', 'Atlanta'],
-            'Title 3' => ['love out']
-        ]
+            'The Struggle Begins' => ['LGBTQ', 'dinning'],
+            'I\'m stuck with this project' => ['travel', 'Atlanta'],
+            'Bugs, a day in the life of a developer' => ['love', 'LGBTQ'],
+            'Return of the last developer' => ['Atlanta', 'LGBTQ', 'travel']
+        ];
         
         foreach ($posts as $title => $tags) {
-            $post = Post::where('title', 'like', $title)->first();
+            $post = Post::where('title', 'LIKE', $title)->first();
 
             foreach ($tags as $name) {
                 $tag = Tag::where('tag', 'LIKE', $name)->first();

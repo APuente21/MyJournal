@@ -32,7 +32,8 @@
             <div class="form-group row">
                     <label class="control-label col-sm-1" for="tags">Tags:</label>
                     <div class="col-sm-5">
-                        <input type="text" class="form-control" name="tags" id="tags">
+                        <input type="text" class="form-control" name="tags" id="tags"
+                        value="{{isset($edit)?$tagsForForm:''}}">
                     </div>
                 
             </div> 

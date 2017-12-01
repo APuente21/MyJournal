@@ -26,7 +26,8 @@ class JournalController extends Controller {
         if (isset($_POST['save_button'])) {
             $this->validate($request, [
                 'date' => 'required|date',
-                'title' => 'required'
+                'title' => 'required',
+                'tags' => 'required'
             ]);
             $tags = explode(" ", $request->input('tags'));
             
@@ -36,13 +37,13 @@ class JournalController extends Controller {
             $journalEntry->save();
             
             for ($x = 0; $x<count($tags); $x++){
-                $result = Tag::where('tag', '=', $tags[$x])->get();
-                if($result == null){
+                $result = (Tag::where('tag', '=', $tags[$x])->get())->toArray();
+                if(count($result) == 0){
                     $tag= new Tag();
-                    $tag->tag = $tags[$x];
+                    $tag->tag = $tags[$x];  
                     $tag->save();
-                }
-                            
+                    $tag->posts()->save($journalEntry);
+                }               
             }
 
            return redirect('/');  
@@ -50,13 +51,19 @@ class JournalController extends Controller {
         } else if (isset($_POST['update_button'])) {
              $this->validate($request, [
                 'date' => 'required|date',
-                'title' => 'required'
+                'title' => 'required',
+                'tags' => 'required'
             ]);
             $result = App\Post::where('created_at', '=', $_POST['date'])->first();
             $result->title = $request->input('title');
             $result->post = $request->input('journal-entry');
-
-           # return ;
+            
+            
+            
+            #implement tag update
+           ## $result->tags()->sync($request->input('tags'));
+        
+            
             $result->save();
             return redirect('/');  
         }
@@ -75,10 +82,20 @@ class JournalController extends Controller {
         $results = Post::orderBy('created_at')->get();
         $tags = Tag::all();
         $edit = Post::where('created_at', '=', $id)->get()->toArray();
+        $book = Post::with('tags')->where('created_at', '=', $id)->get()->toArray();
+        $tagsForForm = '';
+        for ($x = 0; $x < count($book[0]['tags']); $x++){
+            if ($x == count($book[0]['tags']) - 1)
+                $tagsForForm .= ' '. $book[0]['tags'][$x]['tag'];
+            else
+                $tagsForForm .= $book[0]['tags'][$x]['tag'];
+        }
+        
         return view('edit')->with([
             'data' => $results,
             'tags' => $tags,
-            'edit' => $edit
+            'edit' => $edit,
+            'tagsForForm' => $tagsForForm 
         ]);
     }
     
@@ -86,13 +103,12 @@ class JournalController extends Controller {
         $results = Post::orderBy('created_at')->get();
         $tags = Tag::all();
         
-        
-        //add code to search posts that have selected tag    
-        
+        $posts = (Tag::with('posts')->where('tag','=',$id)->get()->toArray())[0]['posts'];
         return view('search')->with([
             'search' =>  $id,
             'data' => $results,
-            'tags' => $tags
+            'tags' => $tags,
+            'posts' => $posts
         ]);
     }
     
