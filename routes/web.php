@@ -41,7 +41,7 @@ Route::get('/debug', function () {
 //Main Page
 Route::get('/', 'JournalController@index');
 
-//Used to perform updated and delete post from db
+//Used to perform save, updated and delete in db
 Route::post('/process-form', 'JournalController@processForm');
 
 //used to querry post from db

@@ -12,9 +12,17 @@ class JournalController extends Controller {
     //Function that executes whenever you access main page. It queries database to get list of post in database
     //and passess results to view
     public function index() {
+        $results = Post::orderBy('created_at')->get();
+        $tagsToRemove = Tag::doesntHave('posts')->get();
+        
+       //Query all tags that are not mapped to a post and delete them from the database
+        if (!$tagsToRemove->isEmpty()){
+            foreach ($tagsToRemove as $tag){
+               $tag->delete();
+            }
+        }
         
         $tags = Tag::all();
-        $results = Post::orderBy('created_at')->get();
         
         return view('save')->with([
             'data' => $results,
@@ -61,19 +69,14 @@ class JournalController extends Controller {
             $journalEntry->post = $request->input('journal-entry');
             $journalEntry->save();
             
-            for ($x = 0; $x<count($tagsInForm); $x++){
-                $result = Tag::where('tag', '=', $tagsInForm[$x])->get();
-                if(count($result->toArray()) == 0){
-                    $tag= new Tag();
-                    $tag->tag = $tagsInForm[$x];  
-                    $tag->save();
-                    $tag->posts()->save($journalEntry);
-                }           
-            }
+            //save tags to DB
+            Tag::saveTags($tagsInForm, $journalEntry);
 
            return redirect('/');  
             
-        } //if Updated button was run then follow these steps
+        } 
+        
+        //if Updated button was run then follow these steps
         else if (isset($_POST['update_button'])) {
              $this->validate($request, [
                 'date' => 'required|date',
@@ -87,46 +90,14 @@ class JournalController extends Controller {
             $result->post = $request->input('journal-entry');
             $result->save(); 
             
-            $tagsInPost = $result->tags;
             
-            //query tag, if not in database then add to tag and relation table in db
-            for ($x = 0; $x<count($tagsInForm); $x++){
-                $tagInDB = Tag::where('tag', '=', $tagsInForm[$x])->get();
+            Tag::updateTags($tagsInForm, $result);
 
-                //if it's a new tag, create it, save it, then link it to post
-                if($tagInDB->isEmpty()){
-                    $tag= new Tag();
-                    $tag->tag = $tagsInForm[$x];  
-                    $tag->save();
-                    $tag->posts()->save($result);
-                } else {
-                    //check if the tag is alrady in the dabatase, but has not been mapped to this post
-                    $test = false;
-                    foreach ($tagsInPost as $myTag){
-                        if (strcmp($myTag->tag,$tagInDB[0]->tag) == 0){
-                            $test = true;
-                            break;
-                        }
-                    }
-                    //if it hasn't been mapped, then map the tag to the post
-                    if(!$test) {
-                        $result->tags()->save($tagInDB[0]);
-                    }
-                }        
-            }
-            
-            //loop through all the tags in the post, if any of the posts have been removed, then detach them in the db
-            for ($y = 0; $y < count($tagsInPost); $y++){
-                if(!(in_array($tagsInPost[$y]->tag,$tagsInForm))){
-                    $tagsInPost[$y]->posts()->detach($result->id);
-                }
-            }
             return redirect('/');  
         }
         //if delete button was selected
         else if (isset($_POST['delete_button'])) {
             $result = Post::with('tags')->where('created_at', '=', $_POST['date'])->delete();
-            
             return redirect('/'); 
         }
         //if cancel button was selected
@@ -135,6 +106,8 @@ class JournalController extends Controller {
         }
     }
     
+    //This method is called when you select a post in the website. It querries the DB for the items 
+    //pertaining to that post and sends it to the edit.blade.php view
     public function editForm($id){
         $results = Post::orderBy('created_at')->get();
         $tags = Tag::all();
@@ -155,6 +128,8 @@ class JournalController extends Controller {
         ]);
     }
     
+    //This method is called when you click on a specific tag. It queries the DB for all the post
+    //linked to the specified tag and passes the information to the search.blade.php view
     public function search($id){
         $results = Post::orderBy('created_at')->get();
         $tags = Tag::all();
