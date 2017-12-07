@@ -50,10 +50,11 @@
                 </div>
             @endif
         </div>
-    </body>
-    <div class="footer">
-        <div class="container-fluid">
+        <div class="footer">
+            <div class="container-fluid">
             © 2017 Copyright
+            </div>
         </div>
-    </div>
+    </body>
+
 </html>

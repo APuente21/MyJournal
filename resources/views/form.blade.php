@@ -29,13 +29,13 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="control-label col-sm-1" for="post">Post:</label>
+                <label class="control-label col-sm-1">Post:</label>
                 <div class="col-sm-11 ">
                     <textarea class="form-control" name="journal-entry" rows="20" id="comment">{{isset($edit)?$edit[0]['post']:''}}</textarea>
                 </div>
             </div>
             <div class="form-group row">
-                    <label class="control-label col-sm-1" for="tags">Tags:</label>
+                    <label class="control-label col-sm-1">Tags:</label>
                     <div class="col-sm-5">
                         <input type="text" class="form-control" name="tags" id="tags"
                         value="{{isset($edit)?$tagsForForm:''}}">
