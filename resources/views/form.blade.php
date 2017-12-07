@@ -14,7 +14,12 @@
             <div class="form-group row">
                 <label class="control-label col-sm-1" for="date">Date:</label>
                 <div class="col-md-4">
-                    <input type="text" id="datepicker" name="date" class="from-control" value="{{isset($edit)?$edit[0]['created_at']:''}}">
+                    @if(isset($edit))
+                        <label>{{$edit[0]['created_at']}}</label>
+                        <input type="hidden" name="date" value="{{$edit[0]['created_at']}}">
+                    @else
+                        <input type="text" id="datepicker" name="date" class="from-control">
+                    @endif
                 </div>
             </div>
             <div class="form-group row">

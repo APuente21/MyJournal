@@ -49,6 +49,9 @@ Route::get('/edit-form/{id}', ['uses' => 'JournalController@editForm']);
 
 //search posts by tags
 Route::get('/tag-search/{id}', ['uses' => 'JournalController@search']);
+
+//search posts by tags
+Route::post('/delete/', ['uses' => 'JournalController@delete']);
 /*
 Route::get('/', function () {
     return view('welcome');

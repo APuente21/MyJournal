@@ -79,10 +79,10 @@ class JournalController extends Controller {
         //if Updated button was run then follow these steps
         else if (isset($_POST['update_button'])) {
              $this->validate($request, [
-                'date' => 'required|date',
                 'title' => 'required',
                 'tags' => 'required'
             ]);
+            
             $tagsInForm = explode(" ", $request->input('tags'));
             
             $result = Post::with('tags')->where('created_at', '=', $_POST['date'])->first();
@@ -95,15 +95,33 @@ class JournalController extends Controller {
 
             return redirect('/');  
         }
-        //if delete button was selected
+        //if delete button was selected redirect to view to confirm deletion
         else if (isset($_POST['delete_button'])) {
-            $result = Post::with('tags')->where('created_at', '=', $_POST['date'])->delete();
-            return redirect('/'); 
+            $results = Post::orderBy('created_at')->get();
+            $tags = Tag::all();
+             return view('delete')->with([
+            'date' =>  $_POST['date'],
+            'title' => $_POST['title'],
+            'data' => $results,
+            'tags' => $tags,
+             ]);
         }
         //if cancel button was selected
         else{
             return redirect('/'); 
         }
+    }
+    
+      //This method handles the actual deletion from database. 
+    public function delete(){
+        //if delete button selected, delete post from db
+        if (isset($_POST['delete_button'])) {
+            $result = Post::with('tags')->where('created_at', '=', $_POST['date'])->delete();
+            return redirect('/'); 
+        //else redirect me back to the post
+        } else{
+             return redirect('/edit-form/'. $_POST['date']);
+        } 
     }
     
     //This method is called when you select a post in the website. It querries the DB for the items 

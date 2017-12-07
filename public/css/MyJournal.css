@@ -98,3 +98,11 @@ header{
     color: white;
     text-align: center;
 }
+
+/*Stylings related to delete view*/
+
+.confirmation{
+    width: 50%;
+    padding: 20px;
+    margin: 20px;
+}

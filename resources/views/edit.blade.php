@@ -1,8 +1,12 @@
 @extends('form')
 
 @push('stylings')
+    
+
     <script src="../js/myjournal.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/MyJournal.css"/>
+    
+
 @endpush
 
 @push('button')
