@@ -51,11 +51,9 @@
             @endif
         </div>
     </body>
-    <footer>
-        <div class="footer">
-            <div class="container-fluid">
-                © 2017 Copyright
-            </div>
+    <div class="footer">
+        <div class="container-fluid">
+            © 2017 Copyright
         </div>
-    </footer>
+    </div>
 </html>

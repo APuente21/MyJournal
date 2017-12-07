@@ -12,7 +12,7 @@
         <form class="form-horizontal" method="POST" action='/process-form'>
             {{ csrf_field() }}
             <div class="form-group row">
-                <label class="control-label col-sm-1" for="date">Date:</label>
+                <label class="control-label col-sm-1">Date:</label>
                 <div class="col-md-4">
                     @if(isset($edit))
                         <label>{{$edit[0]['created_at']}}</label>
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="control-label col-sm-1" for="title">Title:</label>
+                <label class="control-label col-sm-1">Title:</label>
                 <div class="col-sm-11">
                     <input type="text" class="form-control" name="title" id="title" value="{{isset($edit)?$edit[0]['title']:''}}">
                 </div>
